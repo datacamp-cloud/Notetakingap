@@ -51,24 +51,23 @@ public class AddEditUIController extends BaseController implements Initializable
     	String title = titleTxtFld.getText();
         String description = descriptionTxtArea.getText();
     	
-        //if (Objects.nonNull(editNote)) 
-          //  data.remove(editNote);
-        
         if (titleTxtFld.getText().trim().equals("")
                 || descriptionTxtArea.getText().trim().equals("")) {
         	alert = new Alert(AlertType.WARNING);
-            alert.setTitle("Warning Dialog");
-            alert.setHeaderText("Invalid data to save!");
-            alert.setContentText("Note title or description can not be empty!");
+            alert.setTitle("Attention !");
+            alert.setHeaderText("Mauvaise donnée ");
+            alert.setContentText("Le champ titre ou description ne doit pas être vide!");
             alert.showAndWait();
             return;
         }
 
         
+        //requête sql d'enregistrement ou de modification en fonction de l'etat des champs
+        //si les champs sont vides => enregistrement sinon modification
         
         try (Connection connection = DatabaseConnection.getConnection()) {
             if (Objects.nonNull(editNote)) {
-                // Update existing note
+                // Mettre à jour la note existante
                 String sql = "UPDATE NOTE SET titre_note = ?, description = ? WHERE id = ?";
                 try (PreparedStatement statement = connection.prepareStatement(sql)) {
                     statement.setString(1, title);
@@ -76,12 +75,12 @@ public class AddEditUIController extends BaseController implements Initializable
                     statement.setInt(3, editNote.getId());
                     statement.executeUpdate();
 
-                    // Update the note in the data list
+                    // Maj la note dans la liste de donnée
                     editNote.setTitle(title);
                     editNote.setDescription(description);
                 }
             } else {
-                // Insert new note
+                //Ajouter une nouvelle note 
                 String sql = "INSERT INTO NOTE (titre_note, description) VALUES (?, ?)";
                 try (PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
                     statement.setString(1, title);
@@ -103,6 +102,7 @@ public class AddEditUIController extends BaseController implements Initializable
             e.printStackTrace();
         }
 
+        //nettoyage après ajout ou modification des champs titre et description
         editNote = null;
         
         navigate(event, FXMLPage.LIST.getPage());

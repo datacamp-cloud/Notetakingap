@@ -61,13 +61,15 @@ public class ListNotesUIController extends BaseController implements Initializab
     
     @FXML
     void doDelete(ActionEvent event) {
+    	
         Note selectedNote = notesListTable.getSelectionModel().getSelectedItem();
         
+        //ouverture d'une boite de dialogue de confirmation si le bouton supprimé est sélectionné
         if (selectedNote != null) {
         	Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Confirmation Dialog");
-            alert.setHeaderText("You've selected a note to delete.");
-            alert.setContentText("Are you sure to delete this note?");
+            alert.setHeaderText("Vous avez selectionné une note.");
+            alert.setContentText("Êtes vous sûr de vouloir la supprimer?");
             
             ButtonType yesBtn = new ButtonType("Yes");
             ButtonType noBtn = new ButtonType("No", ButtonData.CANCEL_CLOSE);
@@ -107,6 +109,8 @@ public class ListNotesUIController extends BaseController implements Initializab
                 }
             });
         }else {
+        	
+        	//afficher un message si l'utilisateur n'a rien sélectionné
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Warning Dialog");
             alert.setHeaderText("No Note Selected");
@@ -160,6 +164,7 @@ public class ListNotesUIController extends BaseController implements Initializab
 		});
 	}
 	
+	//fonction pour afficher le nombre de notes dans la liste
 	public void notesCounter() {
 		notesCount.setText(data.size() + " Notes");
 	}

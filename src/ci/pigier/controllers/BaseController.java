@@ -28,29 +28,8 @@ public class BaseController {
 	//implementer un programme permettant d'afficher les notes de la Table Note
 	protected static ObservableList<Note> data = FXCollections.<Note>observableArrayList();
 	
-	// Méthode pour compter les notes
 	
-	
-	//Method to add note in db
-	/*public void addNote(Note note) throws SQLException {
-        String insertQuery = "INSERT INTO NOTE (title, description) VALUES (?, ?)";
-        //String generatedColumns[] = { "ID" };
-        
-        try (Connection connection = DatabaseConnection.getConnection();
-             PreparedStatement statement = connection.prepareStatement(insertQuery)) {
-            statement.setString(1, note.getTitle());
-            statement.setString(2, note.getDescription());
-            statement.executeUpdate();
-            
-            /*try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
-            	if(generatedKeys.next()) {
-            		note.setId(generatedKeys.getInt(1));
-            	}
-            }
-        }
-    }*/
-	
-	 //Methode affichage de toutes les notes de la BD
+	//Methode affichage de toutes les notes de la BD
 	public void selectNotes() {
 		String listNotes = "SELECT id, titre_note, description FROM NOTE";
 		
@@ -69,18 +48,6 @@ public class BaseController {
 				}
 	}
 	
-	//delete method's
-    /*public void deleteNoteById(int noteId) {
-        String dltQry = "DELETE FROM NOTE WHERE id = ?";
-        try (Connection cnx = DatabaseConnection.getConnection();
-             PreparedStatement pstmt = cnx.prepareStatement(dltQry)) {
-
-	            pstmt.setInt(1, noteId);
-	            pstmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }*/
 			 
 	protected void navigate(Event event, URL fxmlDocName) throws IOException {
 		// Chargement du nouveau document FXML de l'interface utilisateur

@@ -18,6 +18,7 @@
 	        BaseController controller = new BaseController();
 	        controller.selectNotes();
 			
+	        //Chargement de l'application 
 	        Parent root = FXMLLoader.load(FXMLPage.LIST.getPage());
 	        
 	        Scene scene = new Scene(root);
